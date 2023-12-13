@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import * as path from 'path';
 import { AwsS3ConfigService } from 'src/aws-s3-config/aws-s3-config.service';
+import { UploadFilesRepository } from 'src/db/repo/upload-files/upload-files.repo';
 
 @Injectable()
 export class S3OperationsService {
   constructor(
     private readonly awsS3ConfigService: AwsS3ConfigService,
     private readonly configService: ConfigService,
+    private readonly uploadFilesRepository: UploadFilesRepository,
   ) {}
 
   /**
@@ -17,7 +20,6 @@ export class S3OperationsService {
    */
   private getNewFileName(file: any) {
     const name = file.originalname.replace(/\s+/g, '').split('.')[0];
-    console.log('------------------', path);
     const ext = path.extname(file.originalname);
     const randomName = Array(6)
       .fill(null)
@@ -37,17 +39,33 @@ export class S3OperationsService {
     let iconPath;
 
     if (file?.icon) {
-      iconPath = await this.awsS3ConfigService.s3_upload(
+      iconPath = await this.awsS3ConfigService.s3Upload(
         file.icon[0].buffer,
         this.getNewFileName(file.icon[0]),
         file.icon[0].mimetype,
-        this.configService.get<string>('S3_UPLOAD_PATH'),
+        '/new',
       );
     }
 
     return {
-      iconPath: iconPath?.filePath,
+      iconPath:
+        this.configService.get<string>('S3_UPLOAD_BUCKET') +
+        '/' +
+        iconPath?.filePath,
     };
+  }
+
+  async getObject(filePath: string, res: Response) {
+    try {
+      const data: any = await this.awsS3ConfigService.getObject(
+        this.configService.get('S3_UPLOAD_BUCKET'),
+        filePath,
+      );
+      res.set('Content-Type', data.ContentType);
+      res.send(data.Body);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async listBucket() {
@@ -62,15 +80,11 @@ export class S3OperationsService {
     try {
       let obj = {};
       const buckets = await this.awsS3ConfigService.listBuckets();
-      console.log('buckets', buckets, buckets.length);
       for (let i = 0; i < buckets.length; i++) {
-        console.log('+++++++++++++++++++++++', buckets[i]);
         obj[buckets[i]] = await this.awsS3ConfigService.getListsOfObjects(
           buckets[i],
         );
       }
-
-      console.log('obj', obj);
       return obj;
     } catch (error) {
       throw error;
@@ -79,7 +93,25 @@ export class S3OperationsService {
 
   async create(file: { icon?: any }) {
     try {
-      return this.uploadImageS3(file);
+      const filePath = await this.uploadImageS3(file);
+      return this.uploadFilesRepository.save({
+        file_path: filePath.iconPath,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteFile(filePath: string) {
+    try {
+      await this.awsS3ConfigService.deleteFile(
+        filePath,
+        this.configService.get<string>('S3_UPLOAD_BUCKET'),
+      );
+      await this.uploadFilesRepository.delete({
+        file_path:
+          this.configService.get<string>('S3_UPLOAD_BUCKET') + filePath,
+      });
     } catch (error) {
       throw error;
     }
