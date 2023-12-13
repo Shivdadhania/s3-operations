@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AwsS3ConfigService {
   constructor(
-    @Inject('S3_BUCKET')
     private readonly _client: S3,
     private readonly configService: ConfigService,
   ) {}

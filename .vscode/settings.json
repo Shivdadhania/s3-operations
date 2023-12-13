@@ -1,81 +1,81 @@
 {
-    "prettier.enable": true,
-    "prettier.resolveGlobalModules": true,
-    "eslint.enable": false,
-    "eslint.validate": ["javascript"],
-    "eslint.format.enable": true,
-    "eslint.packageManager": "pnpm",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "[dockercompose]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.autoIndent": "advanced",
-        "editor.quickSuggestions": {
-            "other": true,
-            "comments": false,
-            "strings": true
-        }
-    },
-    "files.associations": {
-        "Dockerfile": "dockerfile",
-        ".cmdrc.json": "json",
-        ".env": "ini",
-        "*.env": "ini",
-        "*.env.*": "ini"
-    },
-    "hediet.vscode-drawio.customFonts": ["Cascadia Code", "Fira Code"],
-
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "editor.unicodeHighlight.ambiguousCharacters": true,
-    "terminal.integrated.fontFamily": "'Cascadia Code', 'Fira Code'",
-    "editor.fontLigatures": true,
-    "[markdown]": {
-        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-    },
-    "extensions.ignoreRecommendations": false,
-    "files.exclude": {
-        "**/.git": true,
-        "**/.github": false,
-        "**/.docker": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        "**/dist/**": false,
-        "**/node_modules/**": false,
-        "**/packages/**/node_modules": true,
-        "**/.pnpm-store": true,
-        "**/.husky": true,
-        "**/.commit": true,
-        "**/:memory": true
-    },
+  "prettier.enable": true,
+  "prettier.resolveGlobalModules": true,
+  "eslint.enable": false,
+  "eslint.validate": ["javascript"],
+  "eslint.format.enable": true,
+  "eslint.packageManager": "pnpm",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
     "editor.tabSize": 2,
-    "editor.formatOnSave": true,
-    "editor.snippetSuggestions": "top",
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "git.ignoreLimitWarning": true,
-    "sonarlint.connectedMode.project": {
-        "connectionId": "http-18-246-40-193-9000",
-        "projectKey": "team-scaletech_monoorepo_base_AYTm24sYNED3x29RRSUl"
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
     }
+  },
+  "files.associations": {
+    "Dockerfile": "dockerfile",
+    ".cmdrc.json": "json",
+    ".env": "ini",
+    "*.env": "ini",
+    "*.env.*": "ini"
+  },
+  "hediet.vscode-drawio.customFonts": ["Cascadia Code", "Fira Code"],
+
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.unicodeHighlight.ambiguousCharacters": true,
+  "terminal.integrated.fontFamily": "'Cascadia Code', 'Fira Code'",
+  "editor.fontLigatures": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "extensions.ignoreRecommendations": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.github": false,
+    "**/.docker": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/dist/**": false,
+    "**/node_modules/**": false,
+    "**/packages/**/node_modules": true,
+    "**/.pnpm-store": true,
+    "**/.husky": true,
+    "**/.commit": true,
+    "**/:memory": true
+  },
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.snippetSuggestions": "top",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.ignoreLimitWarning": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "http-18-246-40-193-9000",
+    "projectKey": "team-scaletech_monoorepo_base_AYTm24sYNED3x29RRSUl"
+  }
 }

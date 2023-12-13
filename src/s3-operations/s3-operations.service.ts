@@ -43,7 +43,6 @@ export class S3OperationsService {
         file.icon[0].buffer,
         this.getNewFileName(file.icon[0]),
         file.icon[0].mimetype,
-        '/new',
       );
     }
 
@@ -55,6 +54,11 @@ export class S3OperationsService {
     };
   }
 
+  /**
+   * get single object from bucket
+   * @param filePath
+   * @param res
+   */
   async getObject(filePath: string, res: Response) {
     try {
       const data: any = await this.awsS3ConfigService.getObject(
@@ -68,6 +72,10 @@ export class S3OperationsService {
     }
   }
 
+  /**
+   * list of all buckets
+   * @returns
+   */
   async listBucket() {
     try {
       return this.awsS3ConfigService.listBuckets();
@@ -76,6 +84,10 @@ export class S3OperationsService {
     }
   }
 
+  /**
+   * get list of object from all buckets
+   * @returns
+   */
   async getListsOfObjects() {
     try {
       let obj = {};
@@ -91,6 +103,11 @@ export class S3OperationsService {
     }
   }
 
+  /**
+   * upload file to s3
+   * @param file
+   * @returns
+   */
   async create(file: { icon?: any }) {
     try {
       const filePath = await this.uploadImageS3(file);
@@ -102,6 +119,10 @@ export class S3OperationsService {
     }
   }
 
+  /**
+   * delete file from s3
+   * @param filePath
+   */
   async deleteFile(filePath: string) {
     try {
       await this.awsS3ConfigService.deleteFile(
@@ -110,8 +131,9 @@ export class S3OperationsService {
       );
       await this.uploadFilesRepository.delete({
         file_path:
-          this.configService.get<string>('S3_UPLOAD_BUCKET') + filePath,
+          this.configService.get<string>('S3_UPLOAD_BUCKET') + '/' + filePath,
       });
+      return;
     } catch (error) {
       throw error;
     }
